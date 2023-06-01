@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+    
+    <bean id="syslog" class="pss.cmmn.logger.SystemLogAspect" />
+    
+    <aop:config>
+        <aop:aspect id="sysLogAspect" ref="syslog">
+        <!-- 웹접근이력 저장 -->
+            <aop:around pointcut="execution(public * *..impl.*Impl.*get*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemSelectLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*view*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemSelectLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*select*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemSelectLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*set*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemInsertLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*insert*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemInsertLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*save*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemUpdateLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*update*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemUpdateLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*modify*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemUpdateLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*del*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemDeleteLog"/>
+            <aop:around pointcut="execution(public * *..impl.*Impl.*delete*(..)) and not execution(public * *..impl.SystemLogServiceImpl.*(..))" method="systemDeleteLog"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

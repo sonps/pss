@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pss.cmmn.menu.mapper.MenuMapper">
+
+<select id="getMenuList" parameterType="userAuthorVO" resultType="userAuthorVO">
+/* SYS_CD별 menu List */
+SELECT mn_nm, pg_url, sort_ord, up_mn_id, pos, MAX(mn_permitted) AS mn_permitted
+		FROM(
+               
+               SELECT t_menu.mn_id
+					, t_menu.up_mn_id
+					, t_menu.mn_nm
+					, t_menu.mn_dc
+					, t_menu.sort_ord
+					, t_menu.pg_id
+					, t_menu.pos
+					, t_menu.pg_url
+					, CASE u_menu.permitted WHEN 'Y' THEN 'Y' ELSE 'N' END AS mn_permitted
+					
+				FROM (                       
+
+                       SELECT	DISTINCT
+								mi.mn_id
+							,	mi.up_mn_id 
+							,	mi.mn_nm 
+							,	mi.mn_dc 
+							,	mi.sort_ord 
+							,	mi.pg_id 
+							,   mi.pos 
+							,	pl.pg_url 
+							,	'' AS permitted
+						FROM pss_menu mi
+						LEFT JOIN pss_program pl ON mi.pg_id = pl.pg_id
+						LEFT JOIN pss_author_menu_mapping amm ON mi.mn_id = amm.mn_id
+					WHERE up_mn_id IS NOT null
+					  AND pl.sys_cd = #{sysCd}
+					  
+				) AS t_menu LEFT OUTER JOIN 
+				(
+				
+				       SELECT 	DISTINCT 
+								mi.mn_id
+							,	mi.up_mn_id
+							,	mi.mn_nm
+							,	mi.mn_dc
+							,	mi.sort_ord
+							,	mi.pg_id
+							,   mi.pos
+							,	pl.pg_url
+							,	'Y' AS permitted
+						FROM pss_menu mi
+						LEFT JOIN pss_program pl ON mi.pg_id = pl.pg_id
+						LEFT JOIN pss_author_menu_mapping amm ON mi.mn_id = amm.mn_id
+						LEFT JOIN pss_user_author ua ON ua.auth_cd = amm.auth_cd
+					WHERE up_mn_id IS NOT NULL
+					<!-- <if test="@pss.cmmn.util.Utils@isNotEmpty(userUuid)"> -->
+					  AND ua.user_uuid = #{userUuid}
+					<!-- </if> -->
+					  AND pl.sys_cd = #{sysCd}
+				) AS u_menu ON t_menu.mn_id = u_menu.mn_id
+		) menu
+	WHERE mn_permitted = 'Y'
+	GROUP BY mn_nm, pg_url, sort_ord, up_mn_id, pos 
+	ORDER BY sort_ord
+</select>
+
+</mapper>

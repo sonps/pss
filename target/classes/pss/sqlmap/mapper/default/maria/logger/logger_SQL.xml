@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pss.cmmn.logger.mapper.SystemLogMapper">
+
+<insert id="insertSystemLog" parameterType="systemLogVO">
+/* 시스템 로그정보를 생성 */
+INSERT 
+  INTO pss_system_log(
+       reg_dt
+     , user_id
+     , user_nm
+     , user_ip
+     , req_url
+     , class_nm
+     , method_nm
+     , args
+     , crud
+     , elapse_time
+     , user_nation
+     , sys_cd
+)VALUES(
+       NOW()
+     , #{userId}
+     , #{userNm}
+     , #{userIp}
+     , #{reqUrl}
+     , #{classNm}
+     , #{methodNm}
+     , #{args}
+     , #{crud}
+     , #{elapseTime}
+     , #{userNation}
+     , #{sysCd}
+)
+</insert>
+
+<select id="getAccessCntList" parameterType="accessCntVO" resultType="accessCntVO">
+/* 카운터해당날짜존재여부확인(세션아이디,날짜가 일치할경우) */
+SELECT ac_idx 
+  FROM pss_access_cnt 
+ WHERE SUBSTR(access_dt, 1, 10) = SUBSTR(NOW(), 1, 10)  
+   AND session_id = #{sessionId}
+  <if test="@pss.cmmn.util.Utils@isNotEmpty(sysCd)">
+   AND sys_cd = #{sysCd}
+  </if>
+</select>
+
+<insert id="insertAccessCnt" parameterType="accessCntVO">
+/* 접속카운트 추가 */
+INSERT 
+  INTO pss_access_cnt (
+	   hit_cnt
+	 , session_id
+	 , sys_cd
+) VALUES (
+	   1
+	 , #{sessionId}
+	 , #{sysCd}
+)
+</insert>
+
+<update id="updateAccessCnt" parameterType="accessCntVO">
+/* 접속카운트 증가 */
+UPDATE pss_access_cnt 
+   SET hit_cnt = IFNULL(hit_cnt,0)+1
+ WHERE SUBSTR(access_dt,1,10) = SUBSTR(NOW(),1,10)
+   AND session_id = #{sessionId}
+  <if test="@pss.cmmn.util.Utils@isNotEmpty(sysCd)">
+   AND sys_cd = #{sysCd}
+  </if>
+</update>
+
+</mapper>

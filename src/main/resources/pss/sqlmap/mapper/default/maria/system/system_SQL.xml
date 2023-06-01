@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pss.cmmn.system.mapper.SystemMapper">
+
+<select id="getSystem" parameterType="userVO" resultType="systemVO">
+/* 시스템 정보 얻기 */
+SELECT sys_cd
+     , sys_nm
+     , par_cd
+     , sys_vs
+     , reg_dt
+     , mod_dt
+     , end_date
+     , enc_val
+     , login_fail_cnt
+     , multi_login_at
+     , auto_logout_min
+     , use_at
+  FROM pss_system
+ WHERE sys_cd = #{sysCd}
+</select>
+
+<select id="getOtherSystemList" parameterType="systemVO" resultType="systemVO">
+/* 본 system 제외 List */
+SELECT sys_cd
+     , sys_nm
+     , par_cd
+     , sys_vs
+     , reg_dt
+     , mod_dt
+     , end_date
+     , enc_val
+     , login_fail_cnt
+     , multi_login_at
+     , auto_logout_min
+     , use_at
+  FROM pss_system
+ WHERE sys_cd <![CDATA[<>]]> #{sysCd}
+</select>
+
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+		
+	<context:component-scan base-package="pss">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+    
+    <mvc:annotation-driven />
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="LoggerInterceptor" class="pss.cmmn.interceptor.LoggerInterceptor"></bean>
+        </mvc:interceptor>
+        
+        <mvc:interceptor>
+    		<mvc:mapping path="/meister/**"/>
+    		<mvc:exclude-mapping path="/meister/user/login.do"/>
+    		<mvc:exclude-mapping path="/meister/user/doLogin.do"/>
+    		<mvc:exclude-mapping path="/meister/user/register.do"/>
+    		<mvc:exclude-mapping path="/meister/user/dupliCheck.do"/>
+    		<mvc:exclude-mapping path="/meister/user/insertProc.do"/>
+    		<mvc:exclude-mapping path="/meister/user/forgotPassword.do"/>
+    		<mvc:exclude-mapping path="/meister/user/doResetPassword.do"/>
+    		<bean id="MeisterLoginInterceptor" class="pss.cmmn.interceptor.MeisterInterceptor"></bean>
+    	</mvc:interceptor>
+    	<!-- 
+    	<mvc:interceptor>
+    		<mvc:mapping path="/clims/**"/>
+    		<mvc:exclude-mapping path="/clims/user/login.do"/>
+    		<mvc:exclude-mapping path="/clims/user/doLogin.do"/>
+    		<mvc:exclude-mapping path="/clims/user/register.do"/>
+    		<mvc:exclude-mapping path="/clims/user/dupliCheck.do"/>
+    		<mvc:exclude-mapping path="/clims/user/doJoin.do"/>
+    		<mvc:exclude-mapping path="/clims/user/forgotPassword.do"/>
+    		<mvc:exclude-mapping path="/clims/user/doResetPassword.do"/>
+    		<bean id="ClimsLoginInterceptor" class="pss.cmmn.interceptor.ClimsInterceptor"></bean>
+    	</mvc:interceptor>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/user/mypage/**"/>
+    		<bean id="MyPageInterceptor" class="pss.cmmn.interceptor.MyPageInterceptor"></bean>
+    	</mvc:interceptor>
+    	 -->
+    </mvc:interceptors>
+    
+    <aop:aspectj-autoproxy/>
+    <bean id="loggerAspect" class="pss.cmmn.logger.LoggerAspect"/>
+    
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+    
+    <!-- tiles 설정 -->
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <property name="order" value="1" />
+    </bean>
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/config/tiles/tiles-layout.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!--/tiles  -->
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="2"
+	    p:viewClass="org.springframework.web.servlet.view.JstlView"
+	    p:prefix="/WEB-INF/jsp/pss/" p:suffix=".jsp"/>
+	    
+	<!-- Globals Properties -->
+	<util:properties id="property" location="classpath:/pss/egovProps/globals_#{systemProperties['spring.profiles.active']}.properties"/>
+
+</beans>

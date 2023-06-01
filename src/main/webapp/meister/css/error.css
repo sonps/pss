@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+
+#error_page{text-align:center; border-top: 1px solid #fff;}
+#error_page .tit{position:relative; margin-top:350px; font-size:50px; color:#344769; font-weight:600; letter-spacing: -0.08em; line-height: 1.3em;}
+#error_page .tit:before{content:url(); position:absolute; width:160px; top:-210px; left:50%; margin-left:-80px;}
+#error_page .tit404:before{content:url(../images/error404.png);}
+#error_page .tit500:before{content:url(../images/error500.png);}
+#error_page .txt{margin-top:20px; font-size:24px; color:#88a3b9; font-weight:600; line-height: 1.5em; letter-spacing: -0.05em; }
+#error_page .txt_s{margin-top:40px; font-size:15px; color:#666; }
+#error_page .btn{margin-top:80px;}
+#error_page .btn button{margin-right:20px; width:160px; height:50px; border-radius:3px; font-size:16px; color:#fff; transition:background 0.3s;}
+#error_page .btn button:first-child{background:#0072bc;}
+#error_page .btn button:last-child{margin-right:0; background:#0f53ab;}
+#error_page .btn button:first-child:hover{background:#045a92;}
+#error_page .btn button:last-child:hover{background:#0c4084;}
+
+@media all and (max-width:500px){
+#error_page .tit{margin-top:300px; font-size:50px;}
+#error_page .tit:before{top:-200px;}
+#error_page .txt{margin-top:40px; font-size:16px;}
+#error_page .txt_s{margin-top:20px; font-size:13px;}
+#error_page .btn{margin-top:35px;}
+#error_page .btn button{width:120px; height:45px; font-size:14px;}
+}

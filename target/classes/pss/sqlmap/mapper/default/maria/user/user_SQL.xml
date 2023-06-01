@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pss.cmmn.user.mapper.UserMapper">
+
+<select id="getUserDupliCheck" parameterType="hashmap" resultType="hashmap">
+/* User 중복확인*/
+SELECT user_uuid
+  FROM pss_userinfo
+ <trim prefix="WHERE" prefixOverrides="AND | OR">
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(user_id)"> 
+   AND user_id = FN_ENCRYPT(#{user_id})
+   </if>
+ </trim>
+</select>
+
+<insert id="insertUser" parameterType="userVO">
+/* 사용자 입력 */ 
+INSERT 
+  INTO pss_userinfo (
+       user_uuid
+     , user_no
+     , user_id
+     , user_pw
+     , user_ty
+     , user_nm
+     , email
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(tel)">
+     , tel
+   </if>
+     , phone
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(job)">
+     , job
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(nick)">
+     , nick
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(zipcd)">
+     , zipcd
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(address1)">
+     , address1
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(address2)">
+     , address2
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(ci)">
+     , ci
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(di)">
+     , di
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(emailYn)">
+     , email_yn
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(smsYn)">
+     , sms_yn
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(newsYn)">
+     , news_yn
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(birthday)">
+     , birthday
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(sex)">
+     , sex
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(picture)">
+     , picture
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(cfmAt)">
+     , cfm_at
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(lockedAt)">
+     , locked_at
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(expirdate)">
+     , expirdate
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(deptCd)">
+     , dept_cd
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(charge)">
+     , charge
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(position)">
+     , `position`
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(corpNumber)">
+     , corp_number
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(useAt)">
+     , use_at
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(regUser)">
+     , reg_user
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(sysCd)">
+     , sys_cd
+   </if>
+  )VALUES(
+       UUID()
+     , #{userNo}
+     , FN_ENCRYPT(#{userId})
+     , #{userPw}
+     , #{userTy}
+     , FN_ENCRYPT(#{userNm})
+     , FN_ENCRYPT(#{email})
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(tel)">
+     , FN_ENCRYPT(#{tel})
+   </if>
+     , FN_ENCRYPT(#{phone})
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(job)">
+     , #{job}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(nick)">
+     , #{nick}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(zipcd)">
+     , #{zipcd}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(address1)">
+     , #{address1}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(address2)">
+     , #{address2}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(ci)">
+     , #{ci}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(di)">
+     , #{di}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(emailYn)">
+     , #{emailYn}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(smsYn)">
+     , #{smsYn}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(newsYn)">
+     , #{newsYn}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(birthday)">
+     , #{birthday}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(sex)">
+     , #{sex}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(picture)">
+     , #{picture}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(cfmAt)">
+     , #{cfmAt}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(lockedAt)">
+     , #{lockedAt}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(expirdate)">
+     , #{expirdate}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(deptCd)">
+     , #{deptCd}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(charge)">
+     , #{charge}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(position)">
+     , #{position}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(corpNumber)">
+     , #{corpNumber}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(useAt)">
+     , #{useAt}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(regUser)">
+     , #{regUser}
+   </if>
+   <if test="@pss.cmmn.util.Utils@isNotEmpty(sysCd)">
+     , #{sysCd}
+   </if>
+  )
+</insert>
+
+<insert id="insertManager" parameterType="userVO">
+/* 관리자 입력 */
+INSERT
+  INTO pss_manager(
+       user_uuid
+     , user_id
+     , user_pw
+     , user_nm
+     , email
+     , phone
+     , state
+  )
+SELECT user_uuid
+     , user_id
+     , user_pw
+     , user_nm
+     , email
+     , phone
+     , 'NORMAL'
+  FROM pss_userinfo
+ WHERE user_no = #{userNo}
+</insert>
+
+<select id="getUserNo" resultType="biginteger">
+/* 사용자 번호 얻기 */
+SELECT COUNT(user_uuid)+1 AS user_no 
+  FROM pss_userinfo
+</select>
+
+<select id="getUserLogin" parameterType="userVO" resultType="userVO">
+/* 사용자 로그인 */
+SELECT user_uuid
+     , FN_DECRYPT(user_id) AS user_id
+     , user_pw
+     , user_no
+     , user_ty
+     , FN_DECRYPT(user_nm) AS user_nm
+     , FN_DECRYPT(email) AS email
+     , FN_DECRYPT(phone) AS phone
+     , FN_DECRYPT(tel) AS tel
+     , job
+     , nick
+     , zipcd
+     , address1
+     , address2
+     , ci
+     , di
+     , email_yn
+     , sms_yn
+     , news_yn
+     , birthday
+     , sex
+     , picture
+     , login_cnt
+     , login_stat
+     , cfm_at
+     , locked_at
+     , dept_cd
+     , charge
+     , position
+     , corp_number
+     , use_at
+     , sys_cd
+  FROM pss_userinfo
+  <trim prefix="WHERE" prefixOverrides="AND | OR">
+   AND user_id = FN_ENCRYPT(#{userId})
+  </trim>
+</select>
+
+<update id="updateLoginCntAdd" parameterType="userVO">
+/* 로그인 시도 횟수 증가 */
+UPDATE pss_userinfo
+   SET login_cnt = login_cnt + 1
+ WHERE user_uuid = #{userUuid}
+</update>
+
+<update id="updateLoginInit" parameterType="userVO">
+/* 로그인 시도 초기화 */
+UPDATE pss_userinfo
+   SET login_cnt = #{loginCnt}
+     , login_stat = #{loginStat}
+ WHERE user_uuid = #{userUuid}
+</update>
+
+<insert id="insertLoginLog" parameterType="loginoutLogVO">
+/* 로그인아웃 로그 등록 */
+INSERT
+  INTO pss_loginout_log(
+       user_uuid
+     , sys_cd
+     , connect_nm
+     , connect_ip
+     , connect_method_cd
+     , connect_ty_cd
+  )VALUES(
+       #{userUuid}
+     , #{sysCd}
+     , #{connectNm}
+     , #{connectIp}
+     , #{connectMethodCd}
+     , #{connectTyCd}
+  )
+</insert>
+
+<select id="updateLoginStat" parameterType="userVO">
+/* 사용자 로그인 상태 변경 */
+UPDATE pss_userinfo
+  <set>
+  	login_stat = #{loginStat}
+  </set>
+  <trim prefix="WHERE" prefixOverrides="AND | OR">
+    user_uuid = #{userUuid}
+  </trim>
+</select>
+
+</mapper>

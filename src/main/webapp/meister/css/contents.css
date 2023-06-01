@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+
+/*index 대시보드*/
+/*레이아웃*/
+.row_group{}
+.row_group .blue_txt{ color: #629cdf;}
+.row_group:after { content: ""; display: block; clear: both;}
+.row_group .section1 { float: left; width: 65%; padding-right: 10px; }
+.row_group .section2 { float: left; width: 35%; }
+.row_group .section3 { float: left; width: 65%; padding-right: 10px;}
+.row_group .section4 { float: left; width: 35%; }
+
+.section1 > .list{ margin-left: -10px;}
+.section1 > .list:after { content: ""; display: block; clear: both;}
+.section1 > .list > li{ float: left; width: 33.33%; padding-left: 10px; margin-bottom: 10px;  }
+.section1 > .list > li > dl{ height: 180px; background: #fff; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); border-radius: 6px; border: 1px solid #d9d9d9; }
+.section2 > .circle_chart{ height: 370px; background: #fff; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); border-radius: 6px; border: 1px solid #d9d9d9; }
+.section3 > .line_chart{ height: 320px; background: #fff; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); border-radius: 6px; border: 1px solid #d9d9d9; }
+.section4 > .list_wrap{ height: 320px; background: #fff; box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); border-radius: 6px; border: 1px solid #d9d9d9; }
+
+/*section1*/
+.section1 > .list > li > dl{ padding-top: 1px;}
+.section1 > .list > li > dl dt{ margin-top: 30px; text-align: center; font-size: 18px; color: #909090; letter-spacing: -0.1em;}
+.section1 > .list > li > dl dd{ margin-top: 20px; font-size: 38px; font-weight: 700; text-align: center;}
+.section1 > .list > li > dl dd .num_link{ display: inline-block; padding: 3px 25px 6px; border: 1px solid #e8e8e8; border-radius: 25px; line-height: 1em; transition: all 0.3s; background-image: linear-gradient(to bottom, #fff, #e0e0e0);}
+.section1 > .list > li > dl dd .num_link:hover{ background: #c73232; color: #fff; border: 1px solid #c73232;}
+
+.section2 > .circle_chart{ padding: 30px;}
+.section2 > .circle_chart .title{  font-size: 18px; color: #909090; letter-spacing: -0.05em;}
+.section2 > .circle_chart .chart_inner{ width: 100%; height: 260px; margin-top: 30px; }
+
+.section3 > .line_chart{ padding: 30px;}
+.section3 > .line_chart .title{ font-size: 18px; color: #909090; letter-spacing: -0.05em;}
+.section3 > .line_chart .chart_inner{ width: 100%; height: 210px; margin-top: 30px;}
+
+.section4 > .list_wrap{ position: relative; padding: 30px;}
+.section4 > .list_wrap .title{ font-size: 18px; color: #909090; letter-spacing: -0.05em;}
+.section4 > .list_wrap .list{ margin-top: 30px;}
+.section4 > .list_wrap .list li { position: relative; padding-right: 170px; font-size: 14px; letter-spacing: -0.05em;}
+.section4 > .list_wrap .list li:after { content: ""; display: block; clear: both;}
+.section4 > .list_wrap .list li+li { margin-top: 10px;}
+.section4 > .list_wrap .list li a { float: left; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-wrap: normal; vertical-align: middle; padding-left: 15px; background:url("../images/lnb_ico_1.png") no-repeat 4px 8px;}
+.section4 > .list_wrap .list li span.new_ico{ display: inline-block; width: 15px; height: 15px; margin-left: 5px; margin-right: -20px;  line-height: 14px; background: #e52248; color: #fff; font-size: 10px; font-weight: 500; text-align: center; border-radius: 50%; vertical-align: middle;}
+.section4 > .list_wrap .list li span.info{ float: right; margin-right: -160px; font-size: 13px;}
+.section4 > .list_wrap .list li span.info > .writer{ margin-right: 15px; display: inline-block; width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;}
+
+.section4 > .list_wrap .more{ position: absolute; top: 30px; right: 40px; padding: 4px 8px; font-size: 14px; text-decoration: none;}
+.section4 > .list_wrap .more:hover{ background: #efefef;}
+
+
+
+
+/*menu tree*/
+.menuTreeWrap{padding:20px; margin:0 0 20px; border:1px solid #e3e7ea; background:#f4f7fc; min-height: 500px;}
+
+/*추첨관리*/
+.lotteryStartBtn{  width: 120px; height: 42px; line-height: 42px; 
+    background:#687AE4;/*ie9이하 호환용*/
+    background:linear-gradient(to right, #687AE4,#754EA6);   
+    box-shadow: 3px 1px 5px rgba(0, 0, 0, 0.4);
+    color: #fff;  font-size: 16px; font-weight: bold; text-align: center; border-radius: 60px; }
+.lotteryStartBtn:hover{ background:#687AE4; }
+
+.lotteryStartBtn .ico{  position: relative; left: 4px; display: inline-block; width: 8px; height: 12px;
+    background: url(/images/ico_arrow02.png) no-repeat center center;  transition: left 0.2s;   }
+.lotteryStartBtn:hover .ico{ left: 10px;}
+.lotteryComplete{ display: inline-block; width: 120px; height: 42px; line-height: 42px; 
+    background:#767676;        
+    color: #fff;  font-size: 16px; font-weight: bold; text-align: center; border-radius: 60px; }
+
+
+/*캘린더*/
+.calendar .date{position:relative; width:100%; height:38px; line-height:38px; font-size:20px; font-weight:400; color:#333; text-align:center; box-sizing:border-box;}
+.calendar .date *{display:inline-block; vertical-align:top;}
+.calendar .date em{ font-size: 24px; font-weight: bold;}
+.calendar .date a{ display: inline-block; border: 1px solid #d1d1d1; position: absolute; top:5px; left:0px; width:40px; height:32px; line-height: 32px;  font-size: 18px; }
+.calendar .date a.next{left:auto; right:0px;}
+.calendar .date a .glyphicon{ vertical-align:baseline;}
+
+.calendar table{width:100%; text-align:center; table-layout: fixed;}
+.calendar table .sun,
+.calendar table .sun a{color:#ff0000;}
+.calendar table .sat,
+.calendar table .sat a{color:#2667ab;}
+.calendar table thead th{height:30px; font-size:16px; color:#333; font-weight:400; border-top:1px solid #d2d2d2; border-bottom:1px solid #d2d2d2; text-align: center; font-weight: bold;}
+.calendar table td{ height: 74px; border:1px solid #ebebeb; vertical-align:top;}
+.calendar table td .season_bar{ display: block; height: 10px;}
+.calendar table td.season_summer .season_bar{ background: #76d5f4;}
+.calendar table td.season_winter .season_bar{ background: #f8b7c2;}
+.calendar table td.season_spring_autumn .season_bar{ background: #f8d496;}
+
+.calendar table td .dayNum{ display: inline-block; width: 30px; height: 30px; border-radius: 30px; background:#f4f4f4; line-height: 30px; margin-top: 10px;}
+.calendar table td .dayNum.today{ background: #1967D2; color: #fff; font-weight: bold;}
+.calendar table td .eventList{ text-align: left; padding: 10px; box-sizing: border-box; letter-spacing:-0.05em; }
+.calendar table td .eventList a{display: block; overflow: hidden; white-space: nowrap; text-overflow:ellipsis; 
+    padding: 2px 4px; background: #9F69B0; color: #fff; font-weight: bold; margin-bottom: 2px; border-radius: 3px;
+}
+.calendar table td .eventList a:hover{background: #79448a; text-decoration: none;}
+
+.calendar .book { margin-top: 15px; padding:11px 0 0 10px;}
+.calendar .book li{position:relative; display:inline-block; line-height: 1em; margin-right: 15px;}
+.calendar .book li:before{content:''; display:inline-block; width:21px; height:14px; margin:0 5px 0 0;  background:#f2f2f2; vertical-align:middle;}
+.calendar .book li.summer:before{background:#76d5f4;}
+.calendar .book li.winter:before{background:#f8b7c2;}
+.calendar .book li.spring_autumn:before{background:#f8d496;}
+
+
+/*한눈에보기 _ 게이트 운영상태*/
+.gateList > li{ padding: 10px 0;}
+.gateList > li + li{ border-top: 1px solid #d9dadc;}
+.gateList > li > strong{ min-width: 160px; display: inline-block; margin-right: 10px; vertical-align: middle;}
+
+
+/*정산-오류 목록표시*/
+.normal_list tbody tr.errorRow{ background-color: rgba(255, 0, 0, 0.05) !important;}
+.normal_list tbody tr.errorRow td{ color: red;}
+
+
+/*메뉴관리 트리*/
+#tree{padding:10px;}
+.fancytree-treefocus span.fancytree-selected span.fancytree-title,
+.fancytree-treefocus span.fancytree-active span.fancytree-title{color:#333; background-color:#FCFAE3;}
+span.fancytree-selected span.fancytree-title,
+span.fancytree-active span.fancytree-title {background-color:#FCFAE3;}
+
+
+
+/*전체예약 조회-사용자취소 툴팁*/
+.reasonToolTip{ 
+    position: relative;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    padding: 2px 12px;
+    font-size: 11px;
+    background: linear-gradient(to bottom, #fcfcfc 20%,#e5e5e5 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);    
+}
+.reasonToolTip:hover{ background: #e5e5e5;}
+.reasonToolTip:hover,
+.reasonToolTip:active{ text-decoration: none;} 
+
+.reasonToolTip > .reasonTxt{ 
+    display: none; opacity: 0;
+    position: absolute; top: -56px; box-sizing: border-box; left: 50%; transform:translate(-50%); 
+    width:180px; min-height: 50px; background-color: #fff5a9; padding: 10px; border: 1px solid #d5c01a;
+    text-shadow: none; word-break: break-all; word-wrap: normal; text-align: left; color: #000; transition: opacity 0.2s 0.2s ;
+    
+}
+.reasonToolTip.on > .reasonTxt{ display:block; opacity: 1; }
+
+
+
+/*설문관리- 상세보기 그래프 text*/
+table.survey_view td{ padding-left: 100px;}
+table.survey_view td > div{ min-width: 2px !important;}
+table.survey_view td > div > .value_txt{ margin-left: -94px; color: #333;}
+
+
+
+
+/* 내부 탭  */
+.anchor_tab{}
+.anchor_tab .tab_btn{ margin-left: 30px; margin-top: -3px;}
+.anchor_tab .tab_btn a{ display: inline-block; padding: 2px 12px; padding-right: 25px;  border-radius: 3px; color: #a7a7a7; border: 1px solid #bebebe; text-decoration: none; background: url(../images/ico_arrow01.gif) no-repeat 95% center; background-color: #fff;}
+.anchor_tab .tab_btn a:hover{ color: #3e3e3e; border-color:#8c8c8c;}
+
+
+
+
+
+/**/

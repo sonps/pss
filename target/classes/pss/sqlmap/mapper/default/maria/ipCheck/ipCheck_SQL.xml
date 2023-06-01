@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pss.cmmn.ipCheck.mapper.IpCheckMapper">
+
+<select id="getIpCheck" parameterType="ipCheckVO" resultType="ipCheckVO">
+/* 아이피 체크 */
+SELECT CASE COUNT(1) WHEN 0 THEN 'N'
+		             ELSE 'Y'
+	   END AS ip_yn
+	 , IFNULL(allw_yn, 'Y') AS allw_yn
+  FROM pss_ip_check
+ WHERE use_at ='Y'
+   AND (ip1 = '*' OR ip1 = SUBSTRING_INDEX(#{clientIp}, '.', 1))
+   AND (ip2 = '*' OR ip2 = SUBSTRING_INDEX(SUBSTRING_INDEX(#{clientIp}, '.', 2), '.', -1))
+   AND (ip3 = '*' OR ip3 = SUBSTRING_INDEX(SUBSTRING_INDEX(#{clientIp}, '.', 3), '.', -1))
+   AND (ip4 = '*' OR ip4 = SUBSTRING_INDEX(SUBSTRING_INDEX(#{clientIp}, '.', 4), '.', -1))
+   AND (ip5 = '*' OR ip5 = SUBSTRING_INDEX(SUBSTRING_INDEX(#{clientIp}, '.', 5), '.', -1))
+   AND (ip6 = '*' OR ip6 = SUBSTRING_INDEX(#{clientIp}, '.', -1))
+   AND sys_cd = #{sysCd}
+ GROUP BY allw_yn
+</select>
+
+</mapper>
